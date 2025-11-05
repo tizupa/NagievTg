@@ -1,10 +1,21 @@
-FROM eclipse-temurin:17-jdk-alpine AS build
-WORKDIR /app
-COPY . .
-RUN ./mvnw clean package -DskipTests
+# Этап сборки (build stage) — используем Maven для компиляции
+FROM maven:3.9.9-amazoncorretto-21 AS build
 
-FROM eclipse-temurin:17-jdk-alpine
+# Копируем pom.xml и исходный код
+COPY pom.xml /app/
+COPY src /app/src/
+
+# Собираем JAR (игнорируем тесты, если не нужны)
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
+RUN mvn clean package -DskipTests
+
+# Этап запуска (runtime stage) — лёгкий образ без Maven
+FROM amazoncorretto:21-alpine-jdk
+
+# Копируем собранный JAR из build-stage
+COPY --from=build /app/target/*.jar /app/app.jar
+
+# Устанавливаем рабочую директорию и точку входа
+WORKDIR /app
 ENTRYPOINT ["java", "-jar", "app.jar"]
+

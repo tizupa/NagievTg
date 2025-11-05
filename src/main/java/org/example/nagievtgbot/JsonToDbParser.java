@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 public class JsonToDbParser {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/nagievdb";  // Из вашего Docker
-    private static final String DB_USER = "user";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_URL = "jdbc:postgresql://138.199.159.165:5454/postgres";  // Из вашего Docker
+    private static final String DB_USER = "postgres";
+    private static final String DB_PASSWORD = "vtozflzn4vw1lmar";
 
     public static void main(String[] args) {
         String jsonFilePath = "D:/tgcusinbd/result.json";  // Укажите путь
