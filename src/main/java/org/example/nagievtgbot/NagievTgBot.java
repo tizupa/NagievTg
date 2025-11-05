@@ -51,9 +51,9 @@ public class NagievTgBot extends TelegramLongPollingBot {
                 return;
             }
 
-            if (text.startsWith("нагиев шанс ")) {
+            if (text.toLowerCase().startsWith("нагиев шанс ")) {
                 try {
-                    String chanceStr = text.substring("нагиев шанс ".length()).trim();
+                    String chanceStr = text.substring("нагиев шанс ".toLowerCase().length()).trim();
                     int chancePercent = Integer.parseInt(chanceStr);
                     if (chancePercent < 0 || chancePercent > 100) {
                         throw new NumberFormatException("Шанс должен быть от 0 до 100");
